@@ -1,9 +1,8 @@
 #include <iostream>
-// using namespace std;
 
-int main ()
-{
-    std::cout << "Hello, World" << std::endl;
+int main () {
+    int i1 = 10;
+    char s1 = 's';
+    std::cout << i1 << ' ' << s1 << ' ' << std::endl;
     return 0;
 }
-
