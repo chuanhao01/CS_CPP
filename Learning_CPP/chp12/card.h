@@ -6,7 +6,8 @@ struct Card{
     Card ();
     Card (int s, int r);
 
-    // Instance variables
+    // Member functions
     void print () const;
     bool greaterThan(const Card& c1) const;
+    bool greaterThanReal(const Card& c1) const;
 };

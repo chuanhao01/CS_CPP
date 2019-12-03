@@ -33,9 +33,9 @@ int linearFind(const std::vector<Card>& deck, const Card& c1){
 }
 
 int main(){
-    Card c1 (2, 1);
-    // Card c2 (2, 3);
-    // std::cout << c1.greaterThan(c2) <<std::endl;
+    Card c1 (2, 3);
+    Card c2 (2, 2);
+    std::cout << c1.greaterThanReal(c2) <<std::endl;
     std::vector<Card> deck = createDeck();
     // printDeck(deck);
     std::cout << linearFind(deck, c1) << std::endl;

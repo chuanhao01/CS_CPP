@@ -51,30 +51,25 @@ bool Card::greaterThan(const Card& c1) const {
     }
 }
 
-// bool Card::greaterThan(const Card& c1) const {
-//         if(suit > c1.suit){
-//             return true;
-//         }
-//         else if(suit == c1.suit){
-//             if(rank == 1){
-//                 if(c1.rank == 1){
-//                     return false;
-//                 }
-//                 else{
-//                     return true;
-//                 }
-//             }
-//             else{
-//                 if(rank > c1.rank){
-//                     return true;
-//                 }
-//                 else{
-//                     return false;
-//                 }
-//             }
-            
-//         }
-//         else{
-//             return false;
-//         }
-// }
+bool Card::greaterThanReal(const Card& c1) const {
+    if(suit > c1.suit){
+        return true;
+    }
+    else if(suit == c1.suit){
+        if(c1.rank == 1){
+            return false;
+        }
+        else if(rank == 1){
+            return true;
+        }
+        else if(rank > c1.rank){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
+}
