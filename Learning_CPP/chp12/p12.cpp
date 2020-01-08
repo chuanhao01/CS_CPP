@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 
-#include "card.h"
+// #include "card.h"
+#include "deck.h"
 
 std::vector<Card> createDeck (){
     std::vector<Card> deck (52);
@@ -33,11 +34,13 @@ int linearFind(const std::vector<Card>& deck, const Card& c1){
 }
 
 int main(){
-    Card c1 (2, 3);
-    Card c2 (2, 2);
-    std::cout << c1.greaterThanReal(c2) <<std::endl;
-    std::vector<Card> deck = createDeck();
+    // Card c1 (2, 3);
+    // Card c2 (2, 2);
+    // std::cout << c1.greaterThanReal(c2) <<std::endl;
+    // std::vector<Card> deck = createDeck();
     // printDeck(deck);
-    std::cout << linearFind(deck, c1) << std::endl;
+    // std::cout << linearFind(deck, c1) << std::endl;
+    Deck deck;
+    deck.print();
     return 1;
 }
