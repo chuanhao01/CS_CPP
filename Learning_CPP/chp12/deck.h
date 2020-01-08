@@ -11,4 +11,7 @@ struct Deck{
 
     // Member func
     void print () const;
+    int find(const Card& card) const;
+    void swapCards(const int low_index, const int high_index);
+    void shuffleDeck();
 };
