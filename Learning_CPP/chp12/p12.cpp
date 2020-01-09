@@ -52,6 +52,39 @@ int randomLowHigh(const int& low, const int& high){
     return rand_num;
 }
 
+Deck merge(const Deck& deck_1, const Deck& deck_2){
+    // Creating the final deck with enough length
+    Deck final_deck (deck_1.cards.size() + deck_2.cards.size());
+
+    // i is the index for deck_1 and j is the index for deck_2
+    int i=0, j=0;
+    for(int k=0; k<final_deck.cards.size(); k++){
+        // For every space in the final_deck
+        if(i == deck_1.cards.size()){
+            // If deck 1 is done
+            final_deck.cards[k] = deck_2.cards[j];
+            j++;
+        }
+        else if(j == deck_2.cards.size()){
+            final_deck.cards[k] = deck_1.cards[i];
+            i++;
+        }
+        else{
+            if(deck_1.cards[i].greaterThan(deck_2.cards[j])){
+                // Check if the deck 1 card is smaller than deck 1
+                final_deck.cards[k] = deck_2.cards[j];
+                j++;
+            }
+            else{
+                final_deck.cards[k] = deck_1.cards[i];
+                i++;
+            }
+        }
+    }
+
+    return final_deck;
+}
+
 int main(){
     // Card c1 (2, 3);
     // Card c2 (2, 2);
@@ -72,11 +105,15 @@ int main(){
     // deck.print();
 
     deck.shuffleDeck();
-    std::vector<Deck> hands (5);
-    for(int i=0; i<hands.size(); i++){
-        hands[i] = deck.subdeck((5*i), (i+1)*5-1);
-        hands[i].print();
-    }
+
+    Deck hand_1 = deck.subdeck(0, 4);
+    Deck hand_2 = deck.subdeck(5, 9);
+
+    hand_1.simpleSort();
+    hand_2.simpleSort();
+
+    Deck final_deck = merge(hand_1, hand_2);
+    final_deck.print();
 
     return 1;
 }
