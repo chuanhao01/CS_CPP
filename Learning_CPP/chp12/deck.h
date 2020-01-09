@@ -8,6 +8,7 @@ struct Deck{
 
     // Init func
     Deck();
+    Deck(const int& size);
 
     // Member func
     void print () const;
@@ -15,4 +16,5 @@ struct Deck{
     void swapCards(const int low_index, const int high_index);
     void shuffleDeck();
     void simpleSort();
+    Deck subdeck(const int& low, const int& high) const;
 };

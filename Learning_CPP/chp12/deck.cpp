@@ -6,6 +6,7 @@
 bool cardEquals(const Card& card_a, const Card& card_b);
 int randomLowHigh(const int& low, const int& high);
 
+// Init functions for the object
 Deck::Deck(){
     // Declare empty temp vector
     std::vector<Card> temp (52);
@@ -19,6 +20,12 @@ Deck::Deck(){
             cards[suit * 13 + rank].rank = rank;
         }
     }
+}
+
+Deck::Deck(const int& size){
+    // Creating the vector of cards
+    std::vector<Card> temp (size);
+    cards = temp;
 }
 
 // Utility functions 
@@ -41,10 +48,8 @@ int Deck::find(const Card& card) const{
 
 // Main functions
 void Deck::print () const{
-    for(int suit=0; suit<4; suit++){
-        for(int rank=1; rank<14; rank++){
-            cards[suit * 13 + rank].print();
-        }
+    for(int i=0; i<cards.size(); i++){
+        cards[i].print();
     }
 }
 
@@ -77,4 +82,13 @@ void Deck::simpleSort() {
         swapCards(i, swap_index);
     }
     return;
+}
+
+Deck Deck::subdeck(const int& low, const int& high) const{
+    Deck sub (high - low + 1);
+
+    for(int i=0; i<sub.cards.size(); i++){
+        sub.cards[i] = cards[low + i];
+    }
+    return sub;
 }

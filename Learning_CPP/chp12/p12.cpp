@@ -65,10 +65,18 @@ int main(){
     // std::cout << a << std::endl;
     // deck.swapCards(1, 2);
 
-    deck.shuffleDeck();
-    deck.print();
+    // deck.shuffleDeck();
+    // deck.print();
 
-    deck.simpleSort();
-    deck.print();
+    // deck.simpleSort();
+    // deck.print();
+
+    deck.shuffleDeck();
+    std::vector<Deck> hands (5);
+    for(int i=0; i<hands.size(); i++){
+        hands[i] = deck.subdeck((5*i), (i+1)*5-1);
+        hands[i].print();
+    }
+
     return 1;
 }
