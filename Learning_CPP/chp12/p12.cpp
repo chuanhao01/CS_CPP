@@ -67,5 +67,8 @@ int main(){
 
     deck.shuffleDeck();
     deck.print();
+
+    deck.simpleSort();
+    deck.print();
     return 1;
 }
