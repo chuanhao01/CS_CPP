@@ -53,6 +53,13 @@ int randomLowHigh(const int& low, const int& high){
 }
 
 Deck merge(const Deck& deck_1, const Deck& deck_2){
+    if(deck_1.cards.size() == 0){
+        return deck_2;
+    }
+    else if(deck_2.cards.size() == 0){
+        return deck_1;
+    }
+
     // Creating the final deck with enough length
     Deck final_deck (deck_1.cards.size() + deck_2.cards.size());
 
@@ -85,6 +92,8 @@ Deck merge(const Deck& deck_1, const Deck& deck_2){
     return final_deck;
 }
 
+
+
 int main(){
     // Card c1 (2, 3);
     // Card c2 (2, 2);
@@ -115,7 +124,10 @@ int main(){
     // Deck final_deck = merge(hand_1, hand_2);
     // final_deck.print();
 
-    Deck final_deck = deck.mergeSort();
+    // Deck final_deck = deck.mergeSort();
+    // final_deck.print();
+
+    Deck final_deck = deck.recMergeSort(deck);
     final_deck.print();
 
     return 1;

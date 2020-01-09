@@ -105,3 +105,17 @@ Deck Deck::mergeSort() const{
 
     return final_deck;
 }
+
+Deck Deck::recMergeSort(Deck deck) const{
+    // Base case
+    if(deck.cards.size() < 2){
+        return deck;
+    }
+
+    int mid_point = deck.cards.size() / 2;
+    Deck hand_1 = deck.subdeck(0, mid_point - 1);
+    Deck hand_2 = deck.subdeck(mid_point, deck.cards.size() - 1);
+    std::cout << hand_1.cards.size() << ' ' << hand_2.cards.size() << std::endl;
+    return merge(recMergeSort(hand_1), recMergeSort(hand_2));
+    
+}
