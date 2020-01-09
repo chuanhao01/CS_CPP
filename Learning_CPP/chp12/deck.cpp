@@ -5,6 +5,7 @@
 
 bool cardEquals(const Card& card_a, const Card& card_b);
 int randomLowHigh(const int& low, const int& high);
+Deck merge(const Deck& deck_1, const Deck& deck_2);
 
 // Init functions for the object
 Deck::Deck(){
@@ -91,4 +92,16 @@ Deck Deck::subdeck(const int& low, const int& high) const{
         sub.cards[i] = cards[low + i];
     }
     return sub;
+}
+
+Deck Deck::mergeSort() const{
+    Deck hand_1 = subdeck(0, 4);
+    Deck hand_2 = subdeck(5, 9);
+
+    hand_1.simpleSort();
+    hand_2.simpleSort();
+
+    Deck final_deck = merge(hand_1, hand_2);
+
+    return final_deck;
 }

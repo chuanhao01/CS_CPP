@@ -17,4 +17,5 @@ struct Deck{
     void shuffleDeck();
     void simpleSort();
     Deck subdeck(const int& low, const int& high) const;
+    Deck mergeSort() const;
 };

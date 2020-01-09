@@ -106,13 +106,16 @@ int main(){
 
     deck.shuffleDeck();
 
-    Deck hand_1 = deck.subdeck(0, 4);
-    Deck hand_2 = deck.subdeck(5, 9);
+    // Deck hand_1 = deck.subdeck(0, 4);
+    // Deck hand_2 = deck.subdeck(5, 9);
 
-    hand_1.simpleSort();
-    hand_2.simpleSort();
+    // hand_1.simpleSort();
+    // hand_2.simpleSort();
 
-    Deck final_deck = merge(hand_1, hand_2);
+    // Deck final_deck = merge(hand_1, hand_2);
+    // final_deck.print();
+
+    Deck final_deck = deck.mergeSort();
     final_deck.print();
 
     return 1;
