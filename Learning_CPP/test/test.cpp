@@ -3,5 +3,6 @@
 
 int main(){
 	std::vector<int> a (13);
-	std::cout << a.size() << std::endl; 
+	int b = a.size() / 2;
+	std::cout << b << std::endl;
 }
