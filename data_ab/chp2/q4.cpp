@@ -12,12 +12,12 @@ bool isSorted(const int array[], const int n){
 int main(){
     const int MAX_SIZE = 10;
     int n = 5;
-    int array[MAX_SIZE];
-    array[0] = 1;
-    array[1] = 5;
-    array[2] = 3;
-    array[3] = 4;
-    array[4] = 5;
+    int array[MAX_SIZE] = {1, 5, 3, 4, 5};
+    // array[0] = 1;
+    // array[1] = 5;
+    // array[2] = 3;
+    // array[3] = 4;
+    // array[4] = 5;
     std::cout << isSorted(array, n) << std::endl;
     return 1;
 }
