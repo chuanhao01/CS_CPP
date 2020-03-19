@@ -6,30 +6,32 @@
  */
 #include "OnlyConnect.h"
 #include "Testing/OnlyConnectTests.h"
+#include <strlib.h>
 
-using namespace std;
-
-string onlyConnectize(string phrase) {
-    // In this function we will remove the vowels and any other none alphabets characters in the string, then turn all the characters into uppercase
+std::string onlyConnectize(std::string phrase) {
+    /* TODO: The next few lines just exist to make sure you don't get compiler warning messages
+     * when this function isn't implemented. Delete these lines, then implement this function.
+     */
+    // Adding the final base case
     if(phrase == ""){
         return "";
     }
-    else{
-        if(isalpha(phrase[0])){
-            // Checking if the current char is ann alphabet
-            // Get the cureent char in upper case
-            char current_char = putchar(toupper(phrase[0]));
-            if(current_char == 'A' || current_char == 'E' || current_char == 'I' || current_char == 'O' || current_char == 'U'){
-                // if the char is a vowel, remove it
-                return "" + onlyConnectize(phrase.substr(1));
-            }
-            else{
-                return current_char + onlyConnectize(phrase.substr(1));
-            }
+    char current_char = phrase[0];
+    current_char = std::toupper(current_char);
+    // Checking for special char
+    if(current_char > 64 && current_char < 91){
+        // Is not a special char
+        if(current_char == 'A' || current_char == 'E' || current_char == 'I' || current_char == 'O' || current_char == 'U' || current_char == 'Y'){
+            // remove vowel
+            return onlyConnectize((phrase.substr(1)));
         }
         else{
-            return "" + onlyConnectize(phrase.substr(1));
+            // consonant remains
+            return std::string(1, current_char) + onlyConnectize(phrase.substr(1));
         }
+    }
+    else{
+        return onlyConnectize(phrase.substr(1));
     }
 }
 
