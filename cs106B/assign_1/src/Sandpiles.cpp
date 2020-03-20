@@ -7,10 +7,21 @@
 using namespace std;
 
 void dropSandOn(Grid<int>& world, int row, int col) {
-    /* TODO: Delete this line and the three after it, then implement this function. */
-    (void) world;
-    (void) row;
-    (void) col;
+    // Checking if this drop is in bounds
+    if(!world.inBounds(row, col)) return;
+    if(world[row][col] == 3){
+        world[row][col] = 0;
+        // Checking if its already full
+        dropSandOn(world, row-1, col);
+        dropSandOn(world, row, col-1);
+        dropSandOn(world, row+1, col);
+        dropSandOn(world, row, col+1);
+        return;
+    }
+    else{
+        world[row][col]++;
+        return;
+    }
 }
 
 
