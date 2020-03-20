@@ -8,15 +8,19 @@
 using namespace std;
 
 string aSequenceOfOrder(int n) {
-    /* TODO: Delete this line and the next two lines, then implement this function. */
-    (void) n;
-    return "";
+    // Checking for error
+    if(n<0) error("The given n order is negative when a positive number was expected");
+    // Checking for base case
+    if(n == 0) return "A";
+    return aSequenceOfOrder(n-1) + bSequenceOfOrder(n-1);
 }
 
 string bSequenceOfOrder(int n) {
-    /* TODO: Delete this line and the next two lines, then implement this function. */
-    (void) n;
-    return "";
+    // Checking for error
+    if(n<0) error("The given n order is negative when a positive number was expected");
+    // Checking for base case
+    if(n == 0) return "B";
+    return bSequenceOfOrder(n-1) + aSequenceOfOrder(n-1);
 }
 
 
