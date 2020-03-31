@@ -5,10 +5,42 @@ using namespace std;
 void administerQuiz(const HashSet<Question>& questions,
                     int numQuestions,
                     const HashSet<Person>& people) {
-    /* TODO: Delete this comment and the next three lines, then implement this function. */
-    (void) questions;
-    (void) numQuestions;
-    (void) people;
+    // Init hashmap of the score to keep track
+    HashMap<char, int> personality_score;
+    const Vector<char> personality_model = {'O', 'C', 'E', 'A', 'N'};
+    int model_length = personality_model.size() ;
+    for(int i=0; i<model_length; i++){
+        personality_score[personality_model[i]] = 0;
+    }
+    // Init asked questions
+    HashSet<Question> asked_questions;
+    // Asking all the questions
+    for(int i=0; i<numQuestions; i++){
+        // Getting a random question from the set
+        const HashSet<Question> questions_can_be_asked = questions - asked_questions;
+        const Question random_question = randomElement(questions_can_be_asked);
+        // Asking the question and getting the result
+        const int result = askPersonalityQuestion(random_question) - 3;
+
+        // Saving the result to the person personality score
+        const HashMap<char, int> question_factors = random_question.factors;
+        // Iterate through all options and check if its affected by the question
+        for(int j=0; j<model_length; j++){
+            // Getting the personality model char
+            const char p_char = personality_model[j];
+            // Contains the personality model
+            if(question_factors.containsKey(p_char)){
+                // Getting the multiplier for the personality from the question
+                const int score_multiplier = question_factors[p_char];
+                // Updating the personality score
+                personality_score[p_char] += score_multiplier * result;
+            }
+        }
+
+        // Removing the question from the set
+        asked_questions.add(random_question);
+    }
+    displayScores(personality_score);
 }
 
 
