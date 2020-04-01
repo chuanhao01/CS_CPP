@@ -2,6 +2,34 @@
 #include "Testing/YouGotHufflepuffTests.h"
 using namespace std;
 
+// Returns the float coeff value
+float calculateCosCoeff(const HashMap<char, int>& personality_scores){
+    const Vector<char> personality_model = {'O', 'C', 'E', 'A', 'N'};
+    const int model_length = personality_model.size();
+    float cos_coeff = 0;
+    // Loop through all scores and calculate the cos sim
+    for(int i=0; i<model_length; i++) {
+        const char p_char = personality_model[i];
+        cos_coeff += pow(personality_scores[p_char], 2);
+    }
+    return sqrt(cos_coeff);
+}
+
+// Returns the cosine similarity score of 2 people
+float calculateCosSim(const HashMap<char, int>& p1, const HashMap<char, int>& p2){
+    const Vector<char> personality_model = {'O', 'C', 'E', 'A', 'N'};
+    const int model_length = personality_model.size();
+    const float p1_coeff = calculateCosCoeff(p1), p2_coeff = calculateCosCoeff(p2);
+    float cos_sim_score = 0;
+    // Calculating the score here
+    for(int i=0; i<model_length; i++){
+        const char p_char = personality_model[i];
+        const float p1_p_score = p1[p_char] / p1_coeff, p2_p_score = p2[p_char]  / p2_coeff;
+        cos_sim_score += (p1_p_score * p2_p_score);
+    }
+    return cos_sim_score;
+}
+
 void administerQuiz(const HashSet<Question>& questions,
                     int numQuestions,
                     const HashSet<Person>& people) {
@@ -40,6 +68,45 @@ void administerQuiz(const HashSet<Question>& questions,
         // Removing the question from the set
         asked_questions.add(random_question);
     }
+
+    // Basic check for error
+    if(calculateCosCoeff(personality_score) == 0.0){
+        displayMessage("Personality score is 0, error");
+        return;
+    }
+
+    // Finding the closest person
+    // Init some vars i am using later
+    Person cloest_person;
+    float cloest_score;
+    HashSet<Person>check_people;
+    // While not all people are checked yet
+    while(check_people != people){
+        // Getting a new person from people which we have not checked yet
+        const HashSet<Person> people_to_check = people - check_people;
+        const Person person_to_check = people_to_check.first();
+
+        // Check if the person personailty score is the closest so far
+        if(check_people.isEmpty()){
+            // Base case for first person
+            cloest_person = person_to_check;
+            cloest_score = calculateCosSim(personality_score, person_to_check.scores);
+        }
+        else{
+            // Calculate the sim score and check if it is the largest so far
+            const float check_sim_score = calculateCosSim(personality_score, person_to_check.scores);
+            if(check_sim_score > cloest_score){
+                cloest_person = cloest_person;
+                cloest_score = check_sim_score;
+            }
+        }
+
+        // Adding the checked person to the end of the line
+        check_people.add(person_to_check);
+    }
+
+    displayMessage("The person you are most like is: " + cloest_person.name);
+
     displayScores(personality_score);
 }
 
@@ -63,3 +130,13 @@ void administerQuiz(const HashSet<Question>& questions,
  * find and fix bugs early on.
  */
 
+ADD_TEST("Cos sim is 0.0") {
+    HashMap<char, int> test_scores;
+    test_scores.add('O', 0);
+    test_scores.add('C', 0);
+    test_scores.add('E', 0);
+    test_scores.add('A', 0);
+    test_scores.add('N', 0);
+    float cos_sim = calculateCosCoeff(test_scores);
+    EXPECT_EQUAL(cos_sim, 0.0);
+}
